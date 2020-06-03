@@ -67,6 +67,13 @@ public extension UITableView {
             setData(data)
             return reloadData()
         }
+                
+        if #available(iOS 10.0, *) {} else {
+            if let data = stagedChangeset.last?.data {
+                setData(data)
+                return reloadData()
+            }
+        }
 
         for changeset in stagedChangeset {
             if let interrupt = interrupt, interrupt(changeset), let data = stagedChangeset.last?.data {
@@ -146,7 +153,14 @@ public extension UICollectionView {
             setData(data)
             return reloadData()
         }
-
+                
+        if #available(iOS 10.0, *) {} else {
+            if let data = stagedChangeset.last?.data {
+                setData(data)
+                return reloadData()
+            }
+        }
+        
         for changeset in stagedChangeset {
             if let interrupt = interrupt, interrupt(changeset), let data = stagedChangeset.last?.data {
                 setData(data)
